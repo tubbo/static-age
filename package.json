@@ -1,5 +1,5 @@
 {
-  "name": "words",
+  "name": "static-age",
   "version": "0.0.4",
   "description": "A blogging platform for ambitious developers.",
   "directories": {
@@ -11,7 +11,7 @@
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "https://github.com/tubbo/words.git",
+  "repository": "https://github.com/tubbo/static-age.git",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -33,7 +33,10 @@
     "glob": "^4.0.5"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "jekyll",
+    "blog",
+    "static"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"

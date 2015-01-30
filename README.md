@@ -1,17 +1,24 @@
-# Ember-cli-words
+# static-age
 
-This README outlines the details of collaborating on this Ember addon.
+A static site addon for ember-cli.
 
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+`ember install:addon static-age`
 
-## Running
+## Usage
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+Generate an article:
+
+`ember generate article TITLE`
+
+Generate a page:
+
+`ember generate page TITLE`
+
+## Deployment
+
+Coming soon: Grunt tasks.
 
 ## Running Tests
 
