@@ -32,6 +32,14 @@
     "express": "^4.8.5",
     "glob": "^4.0.5"
   },
+  "dependencies": {
+    "app-root-path": "^1.0.0",
+    "cheerio": "^0.18.0",
+    "js-yaml": "^3.2.5",
+    "marked": "^0.3.3",
+    "merge": "^1.2.0",
+    "reject": "0.0.1"
+  },
   "keywords": [
     "ember-addon",
     "jekyll",
