@@ -39,6 +39,6 @@
     "configPath": "tests/dummy/config"
   },
   "dependencies": {
-    "words-compiler": "^1.0.2"
+    "words-compiler": "^1.0.3"
   }
 }
