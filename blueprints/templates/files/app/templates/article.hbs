@@ -1,0 +1,23 @@
+<article {{bind-attr id=id}}>
+  <header>
+    <h1>
+      {{link-to title 'article' year month day href}}
+    </h1>
+  </header>
+
+  <main>
+    {{body}}
+  </main>
+
+  <footer>
+    <p>
+      Posted <span class="date">{{formattedDate}}</span>
+      in <span class="category">{{category}}</span>.
+    </p>
+    <p id="more-link">
+      {{#link-to 'article' year month day href class="tiny round secondary button"}}
+        more &raquo;
+      {{/link-to}}
+    </p>
+  </footer>
+</article>

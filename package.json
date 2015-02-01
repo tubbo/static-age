@@ -38,7 +38,9 @@
     "js-yaml": "^3.2.5",
     "marked": "^0.3.3",
     "merge": "^1.2.0",
-    "reject": "0.0.1"
+    "moment": "^2.9.0",
+    "reject": "0.0.1",
+    "underscore.string": "^3.0.2"
   },
   "keywords": [
     "ember-addon",
