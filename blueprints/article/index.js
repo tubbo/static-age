@@ -1,50 +1,49 @@
-var moment = require('moment'),
-    titleize = require('underscore.string/titleize');
+var dasherize = require('underscore.string/dasherize'),
+    titleize = require('underscore.string/titleize'),
+    moment = require('moment'),
+    today = moment();
+
+/**
+ * Generates an Article in Markdown and YAML Front Matter. The file is
+ * placed in `./app/articles` and will be compiled to static HTML on
+ * deployment.
+ */
 
 module.exports = {
-  description: 'Generate a new article',
+  description: 'A blog post in Markdown and YAML Front Matter.',
 
-  fileMapTokens: function() {
-    var name = [
-      moment().format('YYYY-MM-DD'),
-      options.dasherizedModuleName
-    ].join('-');
+  date: today.format('YYYY-MM-DD'),
 
-    return {
-      __templatepath__: function(options) {
-        if (options.pod) {
-          return path.join(options.podPath, name);
-        }
-        return 'templates';
-      },
-      __templatename__: function(options) {
-        if (options.pod) {
-          return 'template';
-        }
-        return name;
-      }
-    };
+  anonymousOptions: [ 'name', 'category', 'tags' ],
+
+  /**
+   * Configures the entity name to be a dasherized version of the date
+   * and title.
+   *
+   * @returns {string} a normalized filename
+   */
+  normalizeEntityName: function(entityName) {
+    return [this.date, dasherize(entityName)].join('-');
   },
 
+  /**
+   * Generate local variables for use within the template. These
+   * attributes are used to set the YAML Front Matter.
+   *
+   * @returns {object} key/value pairs to set local variables on the
+   * template.
+   */
   locals: function(options) {
-    return {
-      title: titleize(options.name),
-      date: moment().format(),
-      category: options.category,
-      tags: options.tags
-    }
-  },
+    var name = options.entity.name.replace(this.date+'-', ''),
+        title = name.split('-').join(' '),
+        category = options.entity.options.category || 'gbs',
+        tags = (options.entity.options.tags || '').split(',').join(', ');
 
-  availableOptions: [
-    {
-      name: 'category',
-      type: String,
-      default: 'gbs'
-    },
-    {
-      name: 'tags',
-      type: String,
-      default: ''
-    }
-  ]
+    return {
+      titleizedModuleName: title,
+      todaysDate: this.date,
+      category: category,
+      tags: tags
+    };
+  }
 };

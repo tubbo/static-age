@@ -1,6 +1,6 @@
 ---
-title: {{title}}
-date: {{date}}
-category: {{category}}
-tags: {{tags}}
+title: <%= titleizedModuleName %>
+date: <%= todaysDate %>
+category: <%= category %>
+tags: <%= tags %>
 ---

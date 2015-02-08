@@ -1,3 +1,3 @@
-import WordsAdapter from './words';
+import StaticAgeAdapter from './static-age';
 
-export default WordsAdapter;
+export default StaticAgeAdapter;

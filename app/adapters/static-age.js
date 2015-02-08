@@ -3,7 +3,7 @@ import DS from 'ember-data';
 export default DS.RESTAdapter.extend({
   find: function(store, type, id, record) {
     var resource = this._super(store, type, id, record);
-    this._content(type, resource, { format: '.preview.html' });
+    this._content(type, resource, { format: '.html' });
     return resource;
   },
 
