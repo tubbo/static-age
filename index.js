@@ -1,13 +1,13 @@
 /* jshint node: true */
 'use strict';
 
-module.exports = {
-  name: 'static-age'
+var compiler = require('./compiler');
 
-  included: function(app) {
-    mergeTrees(staticFiles, {
-      description: 'Static content files in Markdown',
-      overwrite: true
-    });
-  },
+module.exports = {
+  name: 'static-age',
+
+  toTree: function(tree, inputPath, outputPath) {
+    compiler.build(inputPath, outputPath);
+    return tree;
+  }
 };

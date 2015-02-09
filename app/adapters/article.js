@@ -1,3 +1,3 @@
-import StaticAgeAdapter from './static-age-adapter';
+import StaticAgeAdapter from './static-age';
 
 export default StaticAgeAdapter;
