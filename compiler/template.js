@@ -32,6 +32,7 @@ var Template = function(collection, filename) {
   this.destination = destinationPath+'.html';
   this.preview = destinationPath+'.preview.html';
   this.json = destinationPath+'.json';
+  this.key = this.collection.key.split('s').join('');
 };
 
 /**
@@ -47,8 +48,10 @@ var Template = function(collection, filename) {
 Template.prototype.compile = function() {
   var articleFilename = this.destination,
       previewFilename = this.preview,
-      metadataFilename = this.json,
-      metadata = this.attributes();
+      metadataFilename = this.json;
+
+  var metadata = {};
+  metadata[this.key] = this.attributes();
 
   marked(this.toMarkdown(), {
     gfm: true,
@@ -66,9 +69,7 @@ Template.prototype.compile = function() {
     fs.writeFile(articleFilename, html);
     fs.writeFile(previewFilename, $('p').first().html());
   });
-  fs.writeFile(metadataFilename, JSON.stringify({
-    article: metadata
-  }));
+  fs.writeFile(metadataFilename, JSON.stringify(metadata));
 };
 
 /**
