@@ -2,7 +2,6 @@ import {
   moduleForModel,
   test
 } from 'ember-qunit';
-import moment from 'moment';
 
 moduleForModel('article', 'Article', {
   // Specify the other units that are required for this test.
