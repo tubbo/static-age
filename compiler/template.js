@@ -7,7 +7,8 @@ var marked = require('marked'),
     yaml = require('js-yaml'),
     merge = require('merge'),
     reject = require('reject'),
-    cheerio = require('cheerio');
+    cheerio = require('cheerio'),
+    pygments = require('pygmentize-bundled');
 
 /**
  * A template compiler engine which reads a source in Markdown and Front
@@ -37,30 +38,37 @@ var Template = function(collection, filename) {
  * Compiles the Markdown source to HTML and writes that output to the
  * destination file. Returns nothing since this is an asynchronous
  * operation.
- */
-Template.prototype.compile = function() {
-  fs.writeFile(this.destination, this.toHTML());
-  fs.writeFile(this.preview, this.toPreview());
-  fs.writeFile(this.json, this.toJSON());
-};
-
-/**
+ *
  * Compiles Article Markdown contents to HTML using the excellent Marked
  * library.
  *
  * @returns {string} the HTML result of the compiled article template
  */
-Template.prototype.toHTML = function() {
-  return marked(this.toMarkdown());
-};
+Template.prototype.compile = function() {
+  var articleFilename = this.destination,
+      previewFilename = this.preview,
+      metadataFilename = this.json,
+      metadata = this.attributes();
 
-Template.prototype.toPreview = function() {
-  var $ = cheerio.load(this.toHTML());
-  return $('p').first().html();
-};
-
-Template.prototype.toJSON = function() {
-  return JSON.stringify({ article: this.attributes() });
+  marked(this.toMarkdown(), {
+    gfm: true,
+    highlight: function (code, lang, callback) {
+      var opts = { lang: lang, format: 'html' };
+      pygments(opts, code, function(error, result) {
+        callback(error, result.toString());
+      });
+    }
+  }, function(error, html) {
+    if (error) {
+      throw error;
+    }
+    var $ = cheerio.load(html);
+    fs.writeFile(articleFilename, html);
+    fs.writeFile(previewFilename, $('p').first().html());
+  });
+  fs.writeFile(metadataFilename, JSON.stringify({
+    article: metadata
+  }));
 };
 
 /**
