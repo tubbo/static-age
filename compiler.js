@@ -2,13 +2,12 @@
  * Top-level namespace for compiler stuff.
  */
 
+var Collection = require('./compiler/collection');
+
 module.exports = {
-  Collection: require('./compiler/collection'),
-  Template: require('./compiler/template'),
-  build: function(key) {
-    var collection = new this.Collection({ key: key });
-    console.log('Compiling', collection.source, 'to', collection.destination+'...');
-    collection.compile();
-    return collection;
+  name: 'StaticAgeCompiler',
+  ext: 'md',
+  toTree: function(app) {
+    return new Collection({ key: 'articles' });
   }
 };
